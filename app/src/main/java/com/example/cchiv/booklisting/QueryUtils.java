@@ -76,20 +76,25 @@ public class QueryUtils {
 
         try {
             JSONObject jsonObject = new JSONObject(output);
+            if(!jsonObject.has("items")) return null;
             JSONArray items = jsonObject.getJSONArray("items");
             int itemsLength = items.length();
             for(int i = 0; i < itemsLength; i++) {
                 JSONObject jsonObject1 = items.getJSONObject(i);
+                if(!jsonObject1.has("volumeInfo")) continue;
                 JSONObject jsonObject2 = jsonObject1.getJSONObject("volumeInfo");
-
+                if(!jsonObject2.has("title")) continue;
                 String title = jsonObject2.getString("title");
+                if(!jsonObject2.has("authors")) {
+                    arrayList.add(new Book(title, null));
+                    continue;
+                };
                 JSONArray jsonArray = jsonObject2.getJSONArray("authors");
                 StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("By ");
                 for(int g = 0; g < jsonArray.length(); g++) {
                     stringBuilder.append(jsonArray.getString(g) + ", ");
                 }
-
                 arrayList.add(new Book(title, stringBuilder.toString()));
             }
         } catch (JSONException je) {
