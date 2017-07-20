@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BookListing</string>
+
+    <string name="activity_main_edit_text">Query Search</string>
+    <string name="activity_main_button">Book Search</string>
+    <string name="actitivy_main_empty_textview">Start Searching a Book.</string>
+</resources>
